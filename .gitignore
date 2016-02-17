@@ -1,0 +1,44 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+# Project files
+/app/**/*.js
+/app/**/*.map
+
+# NPM Modules
+node_modules
+
+# Log Files
+logs
+*.log
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# Generated Files.
+.sass-cache
+*.ser
+*.swp
+*.swo
+*~
+*.bak
+*.off
+*.old
+
+# Building
+target
+build
+null
+tmp*
+dist
+test-output
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+.c9
+
