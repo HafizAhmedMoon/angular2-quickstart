@@ -3,9 +3,15 @@
  */
 
 import {Component} from 'angular2/core';
+import {TimerWrapper} from 'angular2/src/facade/async';
 
 @Component({
     selector: 'my-app',
-    template: '<h1>My First Angular 2 App</h1>'
+    template: '<h1>Hello {{name}}</h1>'
 })
-export class AppComponent {}
+export class AppComponent {
+    name: string = 'World';
+    constructor(){
+        TimerWrapper.setTimeout(() => this.name = "Angular2" , 3000)
+    }
+}
