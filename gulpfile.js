@@ -70,11 +70,12 @@ gulp.task('wiredep', function () {
 
 gulp.task('inject:sass', function () {
   return gulp.src(paths.src + '/styles/app.{sass,scss}')
-    .pipe(inject(gulp.src([paths.src + '/styles/**/*.{sass,scss}', '!' + paths.src + '/styles/app.{sass,scss}'], {read: false}), {
+    .pipe(inject(gulp.src([paths.src + '/styles/**/*.{sass,scss}', '!' + paths.src + '/styles/app.{sass,scss}', paths.src + '/app/**/*.{sass,scss}'], {read: false}), {
       transform: function (filePath, f, i, l, source) {
         var ext = filePath.split('.').pop(),
           sExt = source.path.split('.').pop();
         filePath = filePath.replace('/src/styles/', '');
+        filePath = filePath.replace('/src/', '../');
         return '@import "' + filePath + '"' + (sExt == 'scss' ? ';' : '');
       }
     }))
@@ -91,7 +92,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('css', function () {
-  return gulp.src(paths.src + '/styles/**/*.css')
+  return gulp.src([paths.src + '/styles/**/*.css', paths.src + '/app/**/*.css'])
     .pipe(autoprefixer('last 5 versions'))
     .on('error', function () {
       gutil.log.apply(gutil, arguments);
@@ -197,13 +198,13 @@ gulp.task('watch', function () {
   watch(paths.src + '/index.html', function () {
     runSequence('index', 'inject:css', 'inject:script', reload);
   });
-  watch([paths.src + '/styles/**/*.{sass,scss}', '!' + paths.src + '/styles/app.{sass,scss}'], function () {
+  watch([paths.src + '/styles/**/*.{sass,scss}', '!' + paths.src + '/styles/app.{sass,scss}', paths.src + '/app/**/*.{sass,scss}'], function () {
     gulp.start('inject:sass');
   });
   watch(paths.src + '/styles/app.{sass,scss}', function () {
     gulp.start('sass');
   });
-  watch(paths.src + '/styles/**/*.css', function (file) {
+  watch([paths.src + '/styles/**/*.css', paths.src + '/app/**/*.css'], function (file) {
     unlinkFromTmp(file);
     gulp.start('css');
   });
@@ -223,7 +224,7 @@ gulp.task('watch', function () {
 function unlinkFromTmp(file) {
   if (!file) return;
   if (file.event == 'unlink') {
-    del.sync(file.path.replace(path.resolve(paths.src), path.resolve(paths.tmp)));
+    del.sync(file.path.replace('\\app\\', '\\styles\\').replace(path.resolve(paths.src), path.resolve(paths.tmp)));
   }
 }
 
@@ -255,11 +256,11 @@ gulp.task('default', function (done) {
       'fonts',
       'wiredep',
       'inject:sass',
-      'sass',
       'css',
       'ts',
       'js'
     ],
+    'sass',
     'inject:script',
     'inject:css',
     'watch',
