@@ -2,7 +2,7 @@
  * Created by Raza on 2/17/2016.
  */
 
-import {Component, View} from "angular2/core";
+import {Component} from "angular2/core";
 import {TimerWrapper} from "angular2/src/facade/async";
 import {FirstComponent} from "./myComponent/firstComponent";
 
