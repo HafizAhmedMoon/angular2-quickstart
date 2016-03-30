@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Angular 2 QuickStart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- build:styles(src) styles/vendor.css -->
+
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:styles(.tmp) styles/app.css -->
+
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <!-- build:vendor({.,src}) scripts/vendor.js -->
+  <!-- IE required polyfills, in this exact order -->
+  <script src="node_modules/es6-shim/es6-shim.js"></script>
+  <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <!-- bower:js -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+</head>
+<body>
+<app>Loading...</app>
+
+<!-- build:scripts(.tmp) scripts/app.js -->
+<!-- inject:js -->
+<!-- endinject -->
+<!-- endbuild -->
+<script>
+  /*System.config({
+   packages: {
+   app: {
+   format: 'register',
+   defaultExtension: ''
+   }
+   }
+   });*/
+  System.import('app/main')
+    .then(null, console.error.bind(console));
+</script>
+</body>
+</html>

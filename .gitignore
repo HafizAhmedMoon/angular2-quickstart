@@ -2,8 +2,7 @@
 # http://git-scm.com/docs/gitignore
 
 # Project files
-/app/**/*.js
-/app/**/*.map
+/.tmp
 
 # NPM Modules
 node_modules
