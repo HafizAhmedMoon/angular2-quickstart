@@ -11,7 +11,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var inject = require('gulp-inject');
 var minifyCss = require('gulp-minify-css');
-var replace = require('gulp-replace');
 var rev = require('gulp-rev');
 var sass = require('gulp-sass');
 var ts = require('gulp-typescript');
@@ -153,9 +152,8 @@ gulp.task('usemin:pre', function () {
   return gulp.src(paths.tmp + '/index.html')
     .pipe(usemin({
       styles: [rev()],
-      vendor: [rev()],
-      //scripts: [uglify(), replace(/('|")use strict('|");?/g, ''), rev()]
-      scripts: [rev()]
+      vendor: [uglify(), rev()],
+      scripts: [uglify({mangle: {keep_fnames: true}}), rev()]
     }))
     .pipe(gulp.dest(paths.dist));
 });
@@ -164,16 +162,6 @@ gulp.task('usemin', ['usemin:pre'], function () {
   return gulp.src(paths.dist + '/styles/**/*.css')
     .pipe(minifyCss({keepSpecialComments: 0}))
     .pipe(gulp.dest(paths.dist + '/styles'))
-});
-
-gulp.task('usemin:dev', function () {
-  return gulp.src(paths.tmp + '/index.html')
-    .pipe(usemin({
-      styles: [rev()],
-      vendor: [rev()],
-      scripts: [rev()]
-    }))
-    .pipe(gulp.dest(paths.dist));
 });
 
 gulp.task('serve', ['default'], function () {
@@ -256,26 +244,6 @@ gulp.task('build', function (done) {
     'inject:script',
     'inject:css',
     'usemin',
-    done);
-});
-
-gulp.task('build:dev', function (done) {
-  runSequence(
-    'clean',
-    'fonts',
-    [
-      'index',
-      'copy',
-      'wiredep',
-      'inject:sass',
-      'css',
-      'ts',
-      'js'
-    ],
-    'sass',
-    'inject:script',
-    'inject:css',
-    'usemin:dev',
     done);
 });
 
