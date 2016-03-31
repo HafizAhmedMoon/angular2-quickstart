@@ -9,8 +9,6 @@ cache:
   - node_modules
   - src/bower_components
   - typings
-before_install:
-- npm --version
 script: npm run build
 after_failure: cat /home/travis/build/hafizahmedattari/angular2-quickstart/npm-debug.log
 branches:
