@@ -1,6 +1,7 @@
 {
   "name": "angular2-quickstart",
   "version": "1.0.0",
+  "description": "Advanced quickstarter for Angular 2 apps",
   "scripts": {
     "postinstall": "bower install && typings install",
     "start": "gulp serve",
